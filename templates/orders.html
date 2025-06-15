@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+    <table class="menu-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Имя покупателя</th>
+                <th>Ресторан</th>
+                <th>Состав</th>
+                <th>Статус</th>
+                <th>Взаимодействие</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.client }}</td>
+                <td>{{ order.Restaurant }}</td>
+                <td>{{ order.compound }}</td>
+                <td>{{ order.status }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('delete_order', id=order.id) }}" novalidate>
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="menu-form">
+        <h3>Создать новый заказ</h3>
+        <form method="POST" action="{{ url_for('add_order') }}" novalidate>
+            <div class="form-group">
+                <label for="client">Имя покупателя</label>
+                <input type="text" class="form-control" id="client" name="client" placeholder="Введите имя покупателя" required>
+            </div>
+
+            <div class="form-group">
+                <label for="restaurant">Ресторан</label>
+                <select class="form-control" id="restaurant" name="restaurant" required>
+                    <option value="">Выберите ресторан</option>
+                    <option value="Ресторан А">Ресторан А</option>
+                    <option value="Ресторан Б">Ресторан Б</option>
+                    <option value="Ресторан С">Ресторан С</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="compound">Элементы заказа</label>
+                <input type="text" class="form-control" id="compound" name="compound" placeholder="Блюда через запятую" required>
+            </div>
+
+            <div class="form-group">
+                <label for="status">Статус заказа</label>
+                <select class="form-control" id="status" name="status" required>
+                    <option value="">Выберите статус</option>
+                    <option value="В ожидании">В ожидании</option>
+                    <option value="Готовится">Готовится</option>
+                    <option value="Готов к доставке">Готов к доставке</option>
+                    <option value="Доставлено">Доставлено</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Создать заказ</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

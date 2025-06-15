@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+    <table class="menu-table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Название ресторана</th>
+                <th scope="col">Рейтинг</th>
+                <th scope="col">Год создания</th>
+                <th scope="col">Взаимодействие</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for restaurant in restaurants %}
+            <tr>
+                <td>{{ restaurant.id }}</td>
+                <td>{{ restaurant.Name }}</td>
+                <td>{{ restaurant.rating }}</td>
+                <td>{{ restaurant.year_create }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('delete_restaurant', id=restaurant.id) }}" novalidate>
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="menu-form">
+        <h3>Добавить новый ресторан</h3>
+        <form method="POST" action="{{ url_for('add_restaurant') }}" novalidate>
+            <div class="form-group">
+                <label for="name">Название ресторана</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="rating">Рейтинг (0-5)</label>
+                <input type="number" class="form-control" id="rating" name="rating" required min="0" max="5" step="0.1">
+            </div>
+            <div class="form-group">
+                <label for="year_create">Год создания (1900-2025)</label>
+                <input type="number" class="form-control" id="year_create" name="year_create" required min="1900" max="2025">
+            </div>
+            <button type="submit" class="btn btn-primary">Добавить ресторан</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
