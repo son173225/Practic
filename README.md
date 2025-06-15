@@ -1,2 +1,2 @@
 Таблица №1 с Ресторанами
-![restourant] (C:\Users\Bogda\Practic\imageforgit\image-res.png)
+![restourant](https://github.com/son173225/Practic/blob/main/imageforgit/image-res.png)
